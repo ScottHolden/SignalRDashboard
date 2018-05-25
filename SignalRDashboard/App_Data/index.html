@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <ul id="dataList"></ul>
+    </div>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
+    <script src="signalr/hubs"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var chat = $.connection.dataHub;
+
+            chat.client.SendData = function (data) {
+                console.log(data);
+
+                var newItem = document.createElement("li");
+                newItem.innerText = data;
+                $('#dataList').append(newItem);
+            };
+
+            $.connection.hub.start().done(function () {
+                console.log("Connected!");
+            });
+        });
+    </script>
+</body>
+</html>
